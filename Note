@@ -1,0 +1,118 @@
+import java.time.LocalDateTime;
+
+public abstract class Note
+{
+    //CONSTANTS
+    public static final String DEFAULT_TITLE = "No Title";
+    public static final String DEFAULT_BODY = "Blank Body";
+    public static final LocalDateTime DEFAULT_CREATION_DATE = LocalDateTime.now();
+    public static final LocalDateTime DEFAULT_LAST_EDIT = LocalDateTime.now();
+
+    //INSTANCE VARIABLES
+    private String title, body;
+    private LocalDateTime creationDate, lastEdit;
+
+    //CONSTRUCTORS
+    public Note(String title, String body, LocalDateTime creationDate, LocalDateTime lastEdit)
+    {
+        this.setAll(title, body, creationDate, lastEdit);
+    }
+
+    public Note()
+    {
+        this(DEFAULT_TITLE, DEFAULT_BODY, DEFAULT_CREATION_DATE, DEFAULT_LAST_EDIT);
+    }
+
+    public Note(Note original)
+    {
+        if(original != null)
+        {
+            this.setAll(original.title, original.body, original.creationDate, original.lastEdit);
+        } else {
+            System.out.println("Bad data given to Note copy constructor.");
+            System.exit(0);
+        }
+    }
+
+    //SETTERS + GETTERS
+    public boolean setTitle(String title)
+    {
+        if (title != null && title.length() > 0) {
+            this.title = title;
+            return true;
+        }
+
+        return false;
+    }
+
+    public String getTitle()
+    {
+        return this.title;
+    }
+
+    public boolean setBody(String body)
+    {
+        if (body != null && body.length() > 0) {
+            this.body = body;
+            return true;
+        }
+
+        return false;
+    }
+
+    public String getBody()
+    {
+        return this.body;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getCreationDate()
+    {
+        return this.creationDate;
+    }
+
+    public void setLastEdit(LocalDateTime lastEdit)
+    {
+        this.lastEdit = lastEdit;
+    }
+
+    public LocalDateTime getLastEdit()
+    {
+        return this.lastEdit;
+    }
+
+    public void setAll(String title, String body, LocalDateTime creationDate, LocalDateTime lastEdit)
+    {
+        this.setTitle(title);
+        this.setBody(body);
+        this.setCreationDate(creationDate);
+        this.setLastEdit(lastEdit);
+    }
+
+    //REQUIRED METHODS
+    @Override
+    public String toString()
+    {
+        return String.format("NOTE = Title: %s, Body: %s, Creation Date: %s, Last Edit: %s", this.title, this.body, this.getCreationDate(), this.getLastEdit());
+    }
+
+    public String toStringNote()
+    {
+        return String.format("%s@>%s@>%s@>%s@>", this.title, this.body, this.getCreationDate(), this.getLastEdit());
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null) {
+            return false;
+        }
+        Note otherNote = (Note) other;
+
+        return this.title.equals(otherNote.title) && this.body.equals(otherNote.body);
+    }
+}

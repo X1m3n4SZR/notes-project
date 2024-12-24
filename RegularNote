@@ -1,0 +1,18 @@
+import java.time.LocalDateTime;
+
+public class RegularNote extends Note{
+    public RegularNote(String title, String body)
+    {
+        super.setAll(title, body, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public RegularNote(String csvNote)
+    {
+        String[] items = csvNote.split("@>");
+        if(items.length == 4)
+        {
+            this.setAll(items[0], items[1], LocalDateTime.parse(items[2]), LocalDateTime.parse(items[3]));
+        }
+ 
+    }
+}
